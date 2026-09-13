@@ -5,6 +5,7 @@
 **A full-stack, enterprise-grade real-time messaging platform engineered for seamless communication.**  
 _Powered by React 19, Node.js, Express, Socket.io, MongoDB, Tailwind CSS, DaisyUI, and Zustand._
 
+[![React](https://img.shields.io/badge/React-19.1-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-7.1-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Express.js](https://img.shields.io/badge/Express.js-4.21-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
@@ -18,8 +19,6 @@ _Powered by React 19, Node.js, Express, Socket.io, MongoDB, Tailwind CSS, DaisyU
 [![Arcjet](https://img.shields.io/badge/Arcjet-Security_&_Rate_Limit-0B0F19?style=for-the-badge&logo=security&logoColor=white)](https://arcjet.com/)
 
 <br />
-
-![Chatify Main Dashboard](/frontend/public/screenshot-for-readme.png)
 
 <br />
 
