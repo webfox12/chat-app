@@ -3,9 +3,8 @@
 # 💬 Chatify — Real-Time Chat Platform
 
 **A full-stack, enterprise-grade real-time messaging platform engineered for seamless communication.**  
-*Powered by React 19, Node.js, Express, Socket.io, MongoDB, Tailwind CSS, DaisyUI, and Zustand.*
+_Powered by React 19, Node.js, Express, Socket.io, MongoDB, Tailwind CSS, DaisyUI, and Zustand._
 
-[![React](https://img.shields.io/badge/React-19.1-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-7.1-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Express.js](https://img.shields.io/badge/Express.js-4.21-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
@@ -24,8 +23,8 @@
 
 <br />
 
-| 🔐 Login Screen | 📝 Sign Up Screen |
-| :---: | :---: |
+|                             🔐 Login Screen                              |                              📝 Sign Up Screen                              |
+| :----------------------------------------------------------------------: | :-------------------------------------------------------------------------: |
 | <img src="/frontend/public/login.png" width="450" alt="Login Preview" /> | <img src="/frontend/public/signup.png" width="450" alt="Sign Up Preview" /> |
 
 </div>
@@ -111,24 +110,26 @@ flowchart TD
 Data persistence is managed through **MongoDB** and **Mongoose** with optimized query indexes:
 
 ### 1. User Model (`models/User.js`)
-| Field | Type | Attributes | Description |
-| :--- | :--- | :--- | :--- |
-| `_id` | `ObjectId` | Primary Key | Unique user identifier |
-| `email` | `String` | Required, Unique, Trimmed | User email address for authentication |
-| `fullName` | `String` | Required | User display name |
-| `password` | `String` | Required, Min length 6 | Salted bcrypt hash |
-| `profilePic` | `String` | Default: `""` | Cloudinary CDN secure URL |
-| `createdAt` / `updatedAt` | `Date` | Timestamps | Auto-generated document timestamps |
+
+| Field                     | Type       | Attributes                | Description                           |
+| :------------------------ | :--------- | :------------------------ | :------------------------------------ |
+| `_id`                     | `ObjectId` | Primary Key               | Unique user identifier                |
+| `email`                   | `String`   | Required, Unique, Trimmed | User email address for authentication |
+| `fullName`                | `String`   | Required                  | User display name                     |
+| `password`                | `String`   | Required, Min length 6    | Salted bcrypt hash                    |
+| `profilePic`              | `String`   | Default: `""`             | Cloudinary CDN secure URL             |
+| `createdAt` / `updatedAt` | `Date`     | Timestamps                | Auto-generated document timestamps    |
 
 ### 2. Message Model (`models/Message.js`)
-| Field | Type | Attributes | Description |
-| :--- | :--- | :--- | :--- |
-| `_id` | `ObjectId` | Primary Key | Unique message identifier |
-| `senderId` | `ObjectId` | Ref: `User`, Required | Sender user reference |
-| `receiverId` | `ObjectId` | Ref: `User`, Required | Recipient user reference |
-| `text` | `String` | Max length: 2000, Trimmed | Text body of the message |
-| `image` | `String` | Optional | Cloudinary CDN URL for image attachments |
-| `createdAt` / `updatedAt` | `Date` | Timestamps | Auto-generated document timestamps |
+
+| Field                     | Type       | Attributes                | Description                              |
+| :------------------------ | :--------- | :------------------------ | :--------------------------------------- |
+| `_id`                     | `ObjectId` | Primary Key               | Unique message identifier                |
+| `senderId`                | `ObjectId` | Ref: `User`, Required     | Sender user reference                    |
+| `receiverId`              | `ObjectId` | Ref: `User`, Required     | Recipient user reference                 |
+| `text`                    | `String`   | Max length: 2000, Trimmed | Text body of the message                 |
+| `image`                   | `String`   | Optional                  | Cloudinary CDN URL for image attachments |
+| `createdAt` / `updatedAt` | `Date`     | Timestamps                | Auto-generated document timestamps       |
 
 ---
 
@@ -136,12 +137,12 @@ Data persistence is managed through **MongoDB** and **Mongoose** with optimized 
 
 Real-time communication is established over an authenticated WebSocket connection verified via HTTP-only cookies during the handshake:
 
-| Event Name | Direction | Payload | Description |
-| :--- | :--- | :--- | :--- |
-| `connection` | Client ⇄ Server | Cookie Header | Validates JWT token and registers user in `userSocketMap` |
-| `getOnlineUsers` | Server ➔ All Clients | `string[]` (Array of user IDs) | Broadcasts list of active user IDs on connect/disconnect |
-| `newMessage` | Server ➔ Receiver Client | `Message` object | Delivers newly created message directly to recipient's socket ID |
-| `disconnect` | Client ⇄ Server | — | Deregisters user from socket map and re-broadcasts online status |
+| Event Name       | Direction                | Payload                        | Description                                                      |
+| :--------------- | :----------------------- | :----------------------------- | :--------------------------------------------------------------- |
+| `connection`     | Client ⇄ Server          | Cookie Header                  | Validates JWT token and registers user in `userSocketMap`        |
+| `getOnlineUsers` | Server ➔ All Clients     | `string[]` (Array of user IDs) | Broadcasts list of active user IDs on connect/disconnect         |
+| `newMessage`     | Server ➔ Receiver Client | `Message` object               | Delivers newly created message directly to recipient's socket ID |
+| `disconnect`     | Client ⇄ Server          | —                              | Deregisters user from socket map and re-broadcasts online status |
 
 ---
 
@@ -150,21 +151,23 @@ Real-time communication is established over an authenticated WebSocket connectio
 All backend API routes are prefixed with `/api`. Protected routes require a valid JWT token in an HTTP-only cookie (`jwt`).
 
 ### Authentication (`/api/auth`)
-| Method | Endpoint | Protection | Description |
-| :--- | :--- | :--- | :--- |
-| `POST` | `/api/auth/signup` | Arcjet | Register a new account, issue JWT cookie & trigger welcome email |
-| `POST` | `/api/auth/login` | Arcjet | Validate credentials and issue JWT cookie |
-| `POST` | `/api/auth/logout` | None | Clear JWT authentication cookie |
-| `PUT` | `/api/auth/update-profile` | JWT Protected | Upload new profile image to Cloudinary and update user record |
-| `GET` | `/api/auth/check` | JWT Protected | Verify session validity and return current user profile |
+
+| Method | Endpoint                   | Protection    | Description                                                      |
+| :----- | :------------------------- | :------------ | :--------------------------------------------------------------- |
+| `POST` | `/api/auth/signup`         | Arcjet        | Register a new account, issue JWT cookie & trigger welcome email |
+| `POST` | `/api/auth/login`          | Arcjet        | Validate credentials and issue JWT cookie                        |
+| `POST` | `/api/auth/logout`         | None          | Clear JWT authentication cookie                                  |
+| `PUT`  | `/api/auth/update-profile` | JWT Protected | Upload new profile image to Cloudinary and update user record    |
+| `GET`  | `/api/auth/check`          | JWT Protected | Verify session validity and return current user profile          |
 
 ### Messages (`/api/messages`)
-| Method | Endpoint | Protection | Description |
-| :--- | :--- | :--- | :--- |
-| `GET` | `/api/messages/contacts` | Arcjet + JWT | Retrieve all registered users excluding the authenticated user |
-| `GET` | `/api/messages/chats` | Arcjet + JWT | Retrieve users with whom the authenticated user has chat history |
-| `GET` | `/api/messages/:id` | Arcjet + JWT | Retrieve full chronological message thread with another user |
-| `POST` | `/api/messages/send/:id` | Arcjet + JWT | Send message (text/image) and emit `newMessage` socket event |
+
+| Method | Endpoint                 | Protection   | Description                                                      |
+| :----- | :----------------------- | :----------- | :--------------------------------------------------------------- |
+| `GET`  | `/api/messages/contacts` | Arcjet + JWT | Retrieve all registered users excluding the authenticated user   |
+| `GET`  | `/api/messages/chats`    | Arcjet + JWT | Retrieve users with whom the authenticated user has chat history |
+| `GET`  | `/api/messages/:id`      | Arcjet + JWT | Retrieve full chronological message thread with another user     |
+| `POST` | `/api/messages/send/:id` | Arcjet + JWT | Send message (text/image) and emit `newMessage` socket event     |
 
 ---
 
@@ -257,24 +260,30 @@ chat-app/
 ## 🚀 Getting Started & Local Setup
 
 ### Prerequisites
-* **Node.js** >= 20.0.0
-* **npm** >= 9.x
-* **MongoDB** connection string (Local or MongoDB Atlas)
-* Free tier API keys for **Cloudinary**, **Resend**, and **Arcjet**
+
+- **Node.js** >= 20.0.0
+- **npm** >= 9.x
+- **MongoDB** connection string (Local or MongoDB Atlas)
+- Free tier API keys for **Cloudinary**, **Resend**, and **Arcjet**
 
 ### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/webfox12/chat-app.git
 cd chat-app
 ```
 
 ### 2. Configure Environment Variables
+
 Navigate to the `backend/` directory and create your `.env` file:
+
 ```bash
 cd backend
 cp .env.example .env
 ```
+
 Fill in the configuration keys:
+
 ```env
 PORT=3000
 NODE_ENV=development
@@ -300,20 +309,24 @@ ARCJET_ENV=development
 Open two terminal windows:
 
 #### Terminal 1 — Backend:
+
 ```bash
 cd backend
 npm install
 npm run dev
 ```
-*Backend server will start listening on `http://localhost:3000`.*
+
+_Backend server will start listening on `http://localhost:3000`._
 
 #### Terminal 2 — Frontend:
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-*Vite dev server will start on `http://localhost:5173`.*
+
+_Vite dev server will start on `http://localhost:5173`._
 
 ---
 
@@ -334,4 +347,5 @@ When `NODE_ENV=production`, Express automatically serves static assets from `fro
 ---
 
 ## 📄 License
+
 This project is open-source software licensed under the [MIT License](LICENSE).
